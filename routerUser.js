@@ -19,7 +19,7 @@ router.get('/users', (req, res, next) => {
     });
 });
 
-router.post('/etapes', (req, res, next) => {
+router.post('/users', (req, res, next) => {
     const localdb = db.client.db(process.env.DB_NAME);
     const collection = localdb.collection(process.env.COLL_USER);
     let newUser = req.body;
