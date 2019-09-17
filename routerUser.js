@@ -19,6 +19,17 @@ router.get('/users', (req, res, next) => {
     });
 });
 
+router.post('/etapes', (req, res, next) => {
+    const localdb = db.client.db(process.env.DB_NAME);
+    const collection = localdb.collection(process.env.COLL_USER);
+    let newUser = req.body;
+    collection.insertOne(newUser, function (err) {
+        if (err) throw err
+        res.status(201).send("OK");
+       
+    });
+});
+
 
 
 
