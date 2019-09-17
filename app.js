@@ -13,7 +13,7 @@ app.use('/api/v1', routerUser);
 app.use('/api/v1', routerEtape);
 
 
-const port = ('3000');
+const port = (process.env.PORT || '3000');
 
 let server = app.listen(port, os.hostname(), () => {
     let host = server.address().address,
