@@ -5,13 +5,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const routerUser = require('./routerUser');
 const routerEtape = require('./routerEtape.js')
+const routerEtape = require('./routerParcours.js')
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/v1', routerUser);
 app.use('/api/v1', routerEtape);
-
+app.use('/api/v1', routerParcours);
 
 const port = (process.env.PORT || '3000');
 
