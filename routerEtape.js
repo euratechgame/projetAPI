@@ -25,10 +25,8 @@ router.post('/etapes', (req, res, next) => {
     let newEtape = req.body;
     collection.insertOne(newEtape, function (err) {
         if (err) throw err
-        collection.find({}).toArray(function (err, docs) {
-            if (err) throw err
-            res.status(201).send(docs);
-        });
+        res.status(201).send("OK");
+       
     });
 });
 
