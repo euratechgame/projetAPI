@@ -3,12 +3,15 @@ const express = require('express'),
 os = require('os');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const router = require('./routes/router')
+const routerUser = require('./routerUser');
+const routerEtape = requi('./routerEtape.js')
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/api/v1', router);
+app.use('/api/v1', routerUser);
+app.use('/api/v1', routerEtape);
+
 
 const port = ('3000');
 
