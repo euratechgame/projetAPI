@@ -1,12 +1,10 @@
 const express = require('express'),
     router = express.Router();
 const db = require('./database');
-// const url = require('url');
-// const querystring = require('querystring');
-// const ObjectId = require('mongodb').ObjectID;
+const url = require('url');
+const querystring = require('querystring');
+const ObjectId = require('mongodb').ObjectID;
 
-// const collectionEtape = 'etapes';
-// const dbname = "projet"
 
 // GET
 
@@ -21,20 +19,18 @@ router.get('/etapes', (req, res, next) => {
 });
 
 
-
-
-// router.post('/todos', (req, res, next) => {
-//     const localdb = db.client.db(process.env.DATABASE);
-//     const collection = localdb.collection(collectionTodos);
-//     let newTodo = req.body;
-//     collection.insertOne(newTodo, function (err) {
-//         if (err) throw err
-//         collection.find({}).toArray(function (err, docs) {
-//             if (err) throw err
-//             res.status(201).send(docs);
-//         });
-//     });
-// });
+router.post('/etapes', (req, res, next) => {
+    const localdb = db.client.db(process.env.DB_NAME);
+    const collection = localdb.collection(process.env.COLL_ETAPE);
+    let newEtape = req.body;
+    collection.insertOne(newEtape, function (err) {
+        if (err) throw err
+        collection.find({}).toArray(function (err, docs) {
+            if (err) throw err
+            res.status(201).send(docs);
+        });
+    });
+});
 
 // router.delete('/todos/:id', (req, res, next) => {
 //     let id = req.params.id;
