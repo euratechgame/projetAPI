@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const routerUser = require('./routerUser');
 const routerEtape = require('./routerEtape.js')
-const routerEtape = require('./routerParcours.js')
+const routerParcours = require('./routerParcours.js')
 
 app.use(cors());
 app.use(bodyParser.json());
