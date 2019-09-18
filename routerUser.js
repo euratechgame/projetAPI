@@ -19,11 +19,11 @@ router.get('/users', (req, res, next) => {
     });
 });
 
-router.get('/users', (req, res, next) => {
+router.get('/users/:id', (req, res, next) => {
     let id = req.params.id
     const localdb = db.client.db(process.env.DB_NAME);
     const collection = localdb.collection(process.env.COLL_USER);
-    collection.find({ "_id": ObjectId(id) }).toArray(function (err, docs) {
+    collection.find({ "_id": ObjectId(id) }, function (err, docs) {
         if (err) throw err
         res.status(200).send(docs);
     });
