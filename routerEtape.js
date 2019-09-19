@@ -18,6 +18,16 @@ router.get('/etapes', (req, res, next) => {
     });
 });
 
+router.get('/etapes/:id', (req, res, next) => {
+    let id = req.params.id
+    const localdb = db.client.db(process.env.DB_NAME);
+    const collection = localdb.collection(process.env.COLL_ETAPE);
+    collection.findOne({ "_id": ObjectId(id) }, function (err, docs) {
+        if (err) throw err
+        res.status(200).send(docs);
+    });
+});
+
 
 router.post('/etapes', (req, res, next) => {
     const localdb = db.client.db(process.env.DB_NAME);
