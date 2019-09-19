@@ -1,9 +1,9 @@
 const express = require('express'),
     router = express.Router();
 const db = require('./database');
-// const url = require('url');
-// const querystring = require('querystring');
-// const ObjectId = require('mongodb').ObjectID;
+const url = require('url');
+const querystring = require('querystring');
+const ObjectId = require('mongodb').ObjectID;
 
 
 
