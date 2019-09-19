@@ -19,6 +19,16 @@ router.get('/parcours', (req, res, next) => {
     });
 });
 
+router.get('/parcours/:id', (req, res, next) => {
+    let id = req.params.id
+    const localdb = db.client.db(process.env.DB_NAME);
+    const collection = localdb.collection(process.env.COLL_PARCOURS);
+    collection.findOne({ "_id": ObjectId(id)}, function (err, docs) {
+        if (err) throw err
+        res.status(200).send(docs);
+    });
+});
+
 router.post('/parcours', (req, res, next) => {
     const localdb = db.client.db(process.env.DB_NAME);
     const collection = localdb.collection(process.env.COLL_PARCOURS);
@@ -31,61 +41,26 @@ router.post('/parcours', (req, res, next) => {
 });
 
 
+router.delete('/parcours/:id', (req, res, next) => {
+    let id = req.params.id;
+    const localdb = db.client.db(process.env.DATABASE);
+    const collection = localdb.collection(process.env.COLL_PARCOURS);
+    collection.deleteOne({ "_id": ObjectId(id) }, function (err) {
+        if (err) throw err
+        res.status(200).send(true);
+    })
+});
 
 
-// router.post('/todos', (req, res, next) => {
-//     const localdb = db.client.db(process.env.DATABASE);
-//     const collection = localdb.collection(collectionTodos);
-//     let newTodo = req.body;
-//     collection.insertOne(newTodo, function (err) {
-//         if (err) throw err
-//         collection.find({}).toArray(function (err, docs) {
-//             if (err) throw err
-//             res.status(201).send(docs);
-//         });
-//     });
-// });
 
-// router.delete('/todos/:id', (req, res, next) => {
-//     let id = req.params.id;
-//     const localdb = db.client.db(process.env.DATABASE);
-//     const collection = localdb.collection(collectionTodos);
-//     collection.deleteOne({ "_id": ObjectId(id) }, function (err) {
-//         if (err) throw err
-//         collection.find({}).toArray(function (err, docs) {
-//             if (err) throw err
-//             res.status(200).send(docs);
-//         });
-//     })
-// });
-
-// router.delete('/todos', (req, res, next) => {
-//     const parsed = url.parse(req.url);
-//     const query = querystring.parse(parsed.query);
-//     const localdb = db.client.db(process.env.DATABASE);
-//     const collection = localdb.collection(collectionTodos);
-//     const completed = JSON.parse(query.completed)
-//     collection.deleteMany({ "completed": completed }, function (err) {
-//         if (err) throw err
-//         collection.find({}).toArray(function (err, docs) {
-//             if (err) throw err
-//             res.status(200).send(docs);
-//         });
-//     })
-// });
-
-// router.put('/todos/:id', (req, res, next) => {
-//     let id = req.params.id
-//     const localdb = db.client.db(process.env.DATABASE);
-//     const collection = localdb.collection(collectionTodos);
-//     collection.updateOne({  "_id": ObjectId(id) }, { $set: req.body }, function (err) {
-//         if (err) throw err
-//         collection.find({}).toArray(function (err, docs) {
-//             if (err) throw err
-//             res.status(200).send(docs);
-//         });
-//     });
-
-// });
+router.put('/todos/:id', (req, res, next) => {
+    let id = req.params.id
+    const localdb = db.client.db(process.env.DATABASE);
+    const collection = localdb.collection(process.env.COLL_PARCOURS);
+    collection.updateOne({  "_id": ObjectId(id) }, { $set: req.body }, function (err) {
+        if (err) throw err
+        res.status(201).send(true);
+    });
+});
 
 module.exports = router;
