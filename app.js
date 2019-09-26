@@ -6,6 +6,8 @@ const cors = require('cors');
 const routerUser = require('./routerUser');
 const routerEtape = require('./routerEtape.js')
 const routerParcours = require('./routerParcours.js')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/api/v1', routerUser);
 app.use('/api/v1', routerEtape);
 app.use('/api/v1', routerParcours);
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));    
 
 const port = (process.env.PORT || '3000');
 
