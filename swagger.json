@@ -1,72 +1,74 @@
 {
-    "swagger":"2.0",
+    "swagger": "2.0",
     "info": {
-    "version": "1.0.0",
-    "title": "Projet Ofil",
-    "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs using TypeScript",
-    "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-    }
-},
-"tags":[
-    {
-        "name": "Parcours",
-        "description": "Apis of parcours"
-    }
-],
-"consumes": [
-    "application/json"
-],
-"produces": [
-    "application/json"
-],
-"paths": {
-    "/menu": {
-        "get": {
-            "tags": [
-                "parcours"
+        "version": "1.0.0",
+        "title": "Projet Ofil",
+        "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs using TypeScript",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "tags": [
+        {
+            "name": "Parcours",
+            "description": "Apis of parcours"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/menu": {
+            "get": {
+                "tags": [
+                    "parcours"
+                ],
+                "summary": "Get all parcours",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "/definitions/menu"
+                        }
+                    }
+                }
+            },
+            "schemes": [
+                "http"
             ],
-            "summary": "Get all parcours",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "/definitions/menu"
+            "definitions": {
+                "id": {
+                    "properties": {
+                        "_id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "parcours": {
+                    "type": "object",
+                    "properties": {
+                        "titre": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "temps": {
+                            "type": "integer"
+                        },
+                        "listeEtapes": {
+                            "type": "array"
+                        },
+                        "image": {
+                            "type": "string"
+                        }
                     }
                 }
             }
-        },
-"schemes": [
-"http"
-],
-"definitions": {
-    "id": {
-        "properties": {
-            "_id": {
-                "type": "string"
-            }
-        }
-    },
-    "parcours": {
-        "type": "object",
-        "properties": {
-            "titre": {
-                "type": "string"
-            },
-            "description": {
-                "type": "string"
-            },
-            "temps": {
-                "type": "integer"
-            },
-            "listeEtapes": {
-                "type": "array"
-            },
-            "image": {
-                "type":"string"
-            }
         }
     }
-}
 }
