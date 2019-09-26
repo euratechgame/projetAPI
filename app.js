@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use('/api/v1', routerUser);
 app.use('/api/v1', routerEtape);
 app.use('/api/v1', routerParcours);
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));    
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = (process.env.PORT || '3000');
 
