@@ -3,12 +3,11 @@ const express = require('express'),
 os = require('os');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-
 const routerUser = require('./routerUser');
 const routerEtape = require('./routerEtape.js')
 const routerParcours = require('./routerParcours.js')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 
 app.use(cors());
 app.use(bodyParser.json());

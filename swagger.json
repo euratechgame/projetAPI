@@ -2,11 +2,40 @@
     "swagger":"2.0",
     "info": {
     "version": "1.0.0",
-    "title": "Ofil-NodeJS-CRUD-RESt-API",
-    "description": "Ofil App'swagger",
+    "title": "Projet Ofil",
+    "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs using TypeScript",
     "license": {
         "name": "MIT",
         "url": "https://opensource.org/licenses/MIT"
+    }
+},
+"definitions": {
+    "id": {
+        "properties": {
+            "uuid": {
+                "type": "string"
+            }
+        }
+    },
+    "parcours": {
+        "type": "object",
+        "properties": {
+            "titre": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "temps": {
+                "type": "integer"
+            },
+            "listeEtapes": {
+                "type": "string"
+            },
+            "image": {
+                "type":"string"
+            }
+        }
     }
 }
 }
