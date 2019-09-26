@@ -9,10 +9,41 @@
         "url": "https://opensource.org/licenses/MIT"
     }
 },
+"tags":[
+    {
+        "name": "Parcours",
+        "description": "Apis of parcours"
+    }
+],
+"consumes": [
+    "application/json"
+],
+"produces": [
+    "application/json"
+],
+"paths": {
+    "/menu": {
+        "get": {
+            "tags": [
+                "parcours"
+            ],
+            "summary": "Get all parcours",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "/definitions/menu"
+                    }
+                }
+            }
+        },
+"schemes": [
+"http"
+],
 "definitions": {
     "id": {
         "properties": {
-            "uuid": {
+            "_id": {
                 "type": "string"
             }
         }
@@ -30,7 +61,7 @@
                 "type": "integer"
             },
             "listeEtapes": {
-                "type": "string"
+                "type": "array"
             },
             "image": {
                 "type":"string"
