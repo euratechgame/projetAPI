@@ -9,6 +9,8 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
+    "host": "localhost:3000",
+    "basePath": "",
     "tags": [
         {
             "name": "Parcours",
@@ -21,54 +23,265 @@
     "produces": [
         "application/json"
     ],
+    "schemes": [
+        "http"
+    ],
     "paths": {
-        "/menu": {
+        "/parcours": {
             "get": {
                 "tags": [
-                    "parcours"
+                    "Parcours"
                 ],
                 "summary": "Get all parcours",
+                "description": "find the parcours",
+                "operationId": "getParcours",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "AllParcours",
+                        "in": "/parcours",
+                        "description": "Find all the parcours",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "content": [
+                            "application/json"
+                        ],
                         "schema": {
-                            "$ref": "/definitions/menu"
+                            "anyOf": {
+                            "$ref": "#/definitions/parcours"
+                        }
+                    },
+                        "400": {
+                            "description": "Invalid status value"
+                        },
+                        "404": {
+                            "description": "Page not found"
                         }
                     }
                 }
             },
-            "schemes": [
-                "http"
-            ],
-            "definitions": {
-                "id": {
-                    "properties": {
-                        "_id": {
-                            "type": "string"
+                "post": {
+                    "tags": [
+                        "Parcours"
+                    ],
+                    "summary": "Add a new parcours",
+                    "description": "",
+                    "operationId": "AddParcours",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Adding a new parcours created by the webmaster",
+                            "required": true,
+                            "schema": {
+                                "$ref": "#/definitions/parcours"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "201": {
+                            "description": "OK"
+                        },
+                        "405": {
+                            "description": "Invalid input"
                         }
                     }
                 },
-                "parcours": {
-                    "type": "object",
-                    "properties": {
-                        "titre": {
-                            "type": "string"
-                        },
-                        "description": {
-                            "type": "string"
-                        },
-                        "temps": {
-                            "type": "integer"
-                        },
-                        "listeEtapes": {
-                            "type": "array"
-                        },
-                        "image": {
-                            "type": "string"
+                "put": {
+                    "tags": [
+                        "Parcours"
+                    ],
+                    "summary": "update a parcours",
+                    "description": "",
+                    "operationId": "UpdateParcours",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Update a parcours created by the webmaster",
+                            "required": true,
+                            "schema": {
+                                "$ref": "#/definitions/parcours"
+                            }
                         }
+                    ],
+                    "responses": {
+                        "201": {
+                            "description": "OK"
+                        },
+                        "405": {
+                            "description": "Invalid input"
+                        }
+                    }
+                }
+            },
+            "/parcours/:id": {
+                "get": {
+                    "tags": [
+                        "Parcours"
+                    ],
+                    "summary": "Get the parcours by Id",
+                    "description": "find a parcours with his Id",
+                    "operationId": "getParcoursById",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/parcours"
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Invalid status value"
+                        },
+                        "404": {
+                            "description": "Page not found"
+                        }
+                    }
+                }
+            }
+        },
+        "definitions": {
+            "parcours": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "titre": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "temps": {
+                        "type": "integer"
+                    },
+                    "listeEtapes": {
+                        "type": "array"
+                    },
+                    "image": {
+                        "type": "string"
+                    }
+                },
+                "xml": {
+                    "name": "Parcours"
+                }
+            },
+            "users": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "email"
+                    },
+                    "lastposition": {
+                        "type": "string"
+                    },
+                    "previousParcours": {
+                        "type": "array"
+                    },
+                    "admin": {
+                        "type": "boolean"
+                    },
+                    "etapeWalid": {
+                        "type": "array"
+                    }
+                },
+                "xml": {
+                    "name": "Users"
+                }
+            },
+            "etapes": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "etapeNext": {
+                        "type": "integer"
+                    },
+                    "etapePrevious": {
+                        "type": "integer"
+                    },
+                    "titre": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "dialogue": {
+                        "type": "array"
+                    },
+                    "culture": {
+                        "type": "string"
+                    },
+                    "position": {
+                        "type": "string"
+                    },
+                    "enigme": {
+                        "type": "object",
+                        "properties": {
+                            "texte": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "reponsePossible": {
+                                "type": "array",
+                                "properties": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "reponse": {
+                        "type": "string"
+                    },
+                    "success": {
+                        "type": "string"
+                    },
+                    "failure": {
+                        "type": "string"
                     }
                 }
             }
         }
     }
-}
