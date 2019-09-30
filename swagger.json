@@ -15,6 +15,14 @@
         {
             "name": "Parcours",
             "description": "Apis of parcours"
+        },
+        {
+            "name": "Users",
+            "description": "Apis of users"
+        },
+        {
+            "name": "Etapes",
+            "description": "Apis of etapes"
         }
     ],
     "consumes": [
@@ -33,8 +41,40 @@
                     "Parcours"
                 ],
                 "summary": "Get all parcours",
-                "description": "find the parcours",
-                "operationId": "getParcours",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": {
+                                    "$ref": "#/definitions/parcours"
+                                },
+                                "example": 
+                                {
+                                    "_id": "",
+                                    "titre": "",
+                                    "description": "",
+                                    "temps": "",
+                                    "listeEtapes": [
+                                    "",
+                                    "",
+                                    ""
+                                    ],
+                                    "image": ""
+                                    }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Parcours"
+                ],
+                "summary": "Add a new parcours",
+                "description": "",
+                "operationId": "AddParcours",
                 "consumes": [
                     "application/json"
                 ],
@@ -43,245 +83,590 @@
                 ],
                 "parameters": [
                     {
-                        "name": "AllParcours",
-                        "in": "/parcours",
-                        "description": "Find all the parcours",
+                        "in": "body",
+                        "name": "body",
+                        "description": "Adding a new parcours created by the webmaster",
                         "required": true,
-                        "type": "array",
-                        "items": {
-                          "type": "string"
+                        "schema": {
+                            "anyOf": {
+                                "$ref": "#/definitions/parcours"
+                            },
+                            "example": {
+                                "_id": "",
+                                "titre": "",
+                                "description": "",
+                                "temps": "",
+                                "listeEtapes": [
+                                ""
+                                ],
+                                "image": ""
+                                }
                         }
-                      }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Parcours"
+                ],
+                "summary": "Delete a parcours",
+                "description": "",
+                "operationId": "DeleteParcours",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "parcours",
+                        "in": "path",
+                        "description": "The id of the parcours that need to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "content": [
-                            "application/json"
-                        ],
-                        "schema": {
-                            "anyOf": {
-                            "$ref": "#/definitions/parcours"
-                        }
+                        "description": "true"
                     },
-                        "400": {
-                            "description": "Invalid status value"
-                        },
-                        "404": {
-                            "description": "Page not found"
-                        }
-                    }
-                }
-            },
-                "post": {
-                    "tags": [
-                        "Parcours"
-                    ],
-                    "summary": "Add a new parcours",
-                    "description": "",
-                    "operationId": "AddParcours",
-                    "consumes": [
-                        "application/json"
-                    ],
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": [
-                        {
-                            "in": "body",
-                            "name": "body",
-                            "description": "Adding a new parcours created by the webmaster",
-                            "required": true,
-                            "schema": {
-                                "$ref": "#/definitions/parcours"
-                            }
-                        }
-                    ],
-                    "responses": {
-                        "201": {
-                            "description": "OK"
-                        },
-                        "405": {
-                            "description": "Invalid input"
-                        }
-                    }
-                },
-                "put": {
-                    "tags": [
-                        "Parcours"
-                    ],
-                    "summary": "update a parcours",
-                    "description": "",
-                    "operationId": "UpdateParcours",
-                    "consumes": [
-                        "application/json"
-                    ],
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": [
-                        {
-                            "in": "body",
-                            "name": "body",
-                            "description": "Update a parcours created by the webmaster",
-                            "required": true,
-                            "schema": {
-                                "$ref": "#/definitions/parcours"
-                            }
-                        }
-                    ],
-                    "responses": {
-                        "201": {
-                            "description": "OK"
-                        },
-                        "405": {
-                            "description": "Invalid input"
-                        }
-                    }
-                }
-            },
-            "/parcours/:id": {
-                "get": {
-                    "tags": [
-                        "Parcours"
-                    ],
-                    "summary": "Get the parcours by Id",
-                    "description": "find a parcours with his Id",
-                    "operationId": "getParcoursById",
-                    "consumes": [
-                        "application/json"
-                    ],
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": [],
-                    "responses": {
-                        "200": {
-                            "description": "successful operation",
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/parcours"
-                                }
-                            }
-                        },
-                        "400": {
-                            "description": "Invalid status value"
-                        },
-                        "404": {
-                            "description": "Page not found"
-                        }
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Parcours not found"
                     }
                 }
             }
         },
-        "definitions": {
-            "parcours": {
-                "type": "object",
-                "properties": {
-                    "_id": {
-                        "type": "string"
+        "/parcours/:id": {
+            "get": {
+                "tags": [
+                    "Parcours"
+                ],
+                "summary": "Get the parcours by Id",
+                "description": "find a parcours with his Id",
+                "operationId": "getParcoursById",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": {
+                                    "$ref": "#/definitions/parcours"
+                                },
+                                "example": {
+                                    "_id": "",
+                                    "titre": "",
+                                    "description": "",
+                                    "temps": "",
+                                    "listeEtapes": [
+                                    ""
+                                    ],
+                                    "image": ""
+                                    }
+                            }
+                        }
                     },
-                    "titre": {
-                        "type": "string"
+                    "400": {
+                        "description": "Invalid status value"
                     },
-                    "description": {
-                        "type": "string"
-                    },
-                    "temps": {
-                        "type": "integer"
-                    },
-                    "listeEtapes": {
-                        "type": "array"
-                    },
-                    "image": {
-                        "type": "string"
+                    "404": {
+                        "description": "Page not found"
                     }
-                },
-                "xml": {
-                    "name": "Parcours"
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": {
+                                    "$ref": "#/definitions/users"
+                                }
+                            }
+                        }
+                    }
                 }
             },
-            "users": {
-                "type": "object",
-                "properties": {
-                    "_id": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "email"
-                    },
-                    "lastposition": {
-                        "type": "string"
-                    },
-                    "previousParcours": {
-                        "type": "array"
-                    },
-                    "admin": {
-                        "type": "boolean"
-                    },
-                    "etapeWalid": {
-                        "type": "array"
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add a new user",
+                "description": "",
+                "operationId": "AddUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Adding a new user",
+                        "required": true,
+                        "schema": {
+                            "anyOf": {
+                                "$ref": "#/definitions/users"
+                            }
+                        }
                     }
-                },
-                "xml": {
-                    "name": "Users"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
                 }
             },
-            "etapes": {
-                "type": "object",
-                "properties": {
-                    "_id": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete a user by email",
+                "description": "",
+                "operationId": "DeleteUserByEmail",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "users",
+                        "in": "path",
+                        "description": "The email of the user that need to be deleted",
+                        "required": true,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "true"
                     },
-                    "etapeNext": {
-                        "type": "integer"
+                    "400": {
+                        "description": "Invalid email supplied"
                     },
-                    "etapePrevious": {
-                        "type": "integer"
-                    },
-                    "titre": {
-                        "type": "string"
-                    },
-                    "image": {
-                        "type": "string"
-                    },
-                    "dialogue": {
-                        "type": "array"
-                    },
-                    "culture": {
-                        "type": "string"
-                    },
-                    "position": {
-                        "type": "string"
-                    },
-                    "enigme": {
-                        "type": "object",
-                        "properties": {
-                            "texte": {
-                                "type": "string"
-                            },
-                            "type": {
-                                "type": "string"
-                            },
-                            "reponsePossible": {
-                                "type": "array",
-                                "properties": {
-                                    "type": "string"
+                    "404": {
+                        "description": "user not found"
+                    }
+                }
+            }
+        },
+        "/users/:id": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get the user by Id",
+                "description": "find a user with his Id",
+                "operationId": "getUserById",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": {
+                                    "$ref": "#/definitions/users"
                                 }
                             }
                         }
                     },
-                    "reponse": {
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Updated user",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "updateUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "Id of the user that need to be updated",
+                        "required": true,
                         "type": "string"
                     },
-                    "success": {
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated user object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/users"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid user supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete a user by id",
+                "description": "",
+                "operationId": "DeleteUserById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "users",
+                        "in": "path",
+                        "description": "The id of the user that need to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "true"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "user not found"
+                    }
+                }
+            }
+        },
+        "/etapes": {
+            "get": {
+                "tags": [
+                    "Etapes"
+                ],
+                "summary": "Get all etapes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": {
+                                    "$ref": "#/definitions/etapes"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Etapes"
+                ],
+                "summary": "Add a new etape",
+                "description": "",
+                "operationId": "Addetape",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Adding a new etape created by the webmaster",
+                        "required": true,
+                        "schema": {
+                            "anyOf": {
+                                "$ref": "#/definitions/etapes"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/etapes/:id": {
+            "get": {
+                "tags": [
+                    "Etapes"
+                ],
+                "summary": "Get the etape by Id",
+                "description": "find a etape with his Id",
+                "operationId": "getetapeById",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "anyOf": {
+                                    "$ref": "#/definitions/etapes"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Etapes"
+                ],
+                "summary": "Updated etape",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "updateEtape",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "etapeId",
+                        "in": "path",
+                        "description": "Id of the etape that need to be updated",
+                        "required": true,
                         "type": "string"
                     },
-                    "failure": {
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated etape object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/etapes"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid etape supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Etapes"
+                ],
+                "summary": "Delete a etape",
+                "description": "",
+                "operationId": "Deleteetape",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "etapes",
+                        "in": "path",
+                        "description": "The id of the etape that need to be deleted",
+                        "required": true,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "true"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "etape not found"
                     }
                 }
             }
         }
+    },
+    "security": [
+        {
+            "mySecurityDefinition": []
+        }
+    ],
+    "definitions": {
+        "parcours": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "titre": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "temps": {
+                    "type": "integer"
+                },
+                "listeEtapes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "image": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "Parcours"
+            }
+        },
+        "users": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "lastposition": {
+                    "type": "string"
+                },
+                "previousParcours": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "admin": {
+                    "type": "boolean"
+                },
+                "etapeWalid": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "xml": {
+                "name": "Users"
+            }
+        },
+        "etapes": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "etapeNext": {
+                    "type": "integer"
+                },
+                "etapePrevious": {
+                    "type": "integer"
+                },
+                "titre": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "dialogue": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "culture": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "string"
+                },
+                "enigme": {
+                    "type": "object",
+                    "properties": {
+                        "texte": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
+                        },
+                        "reponsePossible": {
+                            "type": "array",
+                            "item": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "reponse": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                },
+                "failure": {
+                    "type": "string"
+                }
+            }
+        }
     }
+}
