@@ -47,7 +47,7 @@ router.post('/etapes', (req, res, next) => {
 
 router.delete('/etapes/:id', (req, res, next) => {
     let id = req.params.id;
-    const localdb = db.client.db(process.env.DATABASE);
+    const localdb = db.client.db(process.env.DB_NAME);
     const collection = localdb.collection(process.env.COLL_ETAPE);
     collection.deleteOne({ "_id": ObjectId(id) }, function (err) {
         if (err) throw err
@@ -60,7 +60,7 @@ router.delete('/etapes/:id', (req, res, next) => {
 
 router.put('/etapes/:id', (req, res, next) => {
     let id = req.params.id
-    const localdb = db.client.db(process.env.DATABASE);
+    const localdb = db.client.db(process.env.DB_NAME);
     const collection = localdb.collection(process.env.COLL_ETAPE);
     collection.updateOne({  "_id": ObjectId(id) }, { $set: req.body }, function (err) {
         if (err) throw err

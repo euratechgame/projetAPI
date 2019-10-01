@@ -5,7 +5,7 @@ class Database {
         this.client = null;
     }
     connect() {
-        mongo.connect(`mongodb+srv://jeanlapinafpa:afpaProjet@clusterprojetafpa-mvaec.gcp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true }, (err, client) => {
+        mongo.connect(process.env.URL_DATABASE, { useNewUrlParser: true }, (err, client) => {
             if (err) throw err
             this.client = client;
         });

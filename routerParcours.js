@@ -43,7 +43,7 @@ router.post('/parcours', (req, res, next) => {
 
 router.delete('/parcours/:id', (req, res, next) => {
     let id = req.params.id;
-    const localdb = db.client.db(process.env.DATABASE);
+    const localdb = db.client.db(process.env.DB_NAME);
     const collection = localdb.collection(process.env.COLL_PARCOURS);
     collection.deleteOne({ "_id": ObjectId(id) }, function (err) {
         if (err) throw err
