@@ -10,7 +10,7 @@
         }
     },
     "host": "localhost:3000",
-    "basePath": "",
+    "basePath": "/",
     "tags": [
         {
             "name": "Parcours",
@@ -47,22 +47,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "anyOf": {
-                                    "$ref": "#/definitions/parcours"
-                                },
-                                "example": 
-                                {
-                                    "_id": "",
-                                    "titre": "",
-                                    "description": "",
-                                    "temps": "",
-                                    "listeEtapes": [
-                                    "",
-                                    "",
-                                    ""
-                                    ],
-                                    "image": ""
-                                    }
+                                "$ref": "#/definitions/parcours"
                             }
                         }
                     }
@@ -88,19 +73,7 @@
                         "description": "Adding a new parcours created by the webmaster",
                         "required": true,
                         "schema": {
-                            "anyOf": {
-                                "$ref": "#/definitions/parcours"
-                            },
-                            "example": {
-                                "_id": "",
-                                "titre": "",
-                                "description": "",
-                                "temps": "",
-                                "listeEtapes": [
-                                ""
-                                ],
-                                "image": ""
-                                }
+                            "$ref": "#/definitions/parcours"
                         }
                     }
                 ],
@@ -166,19 +139,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "anyOf": {
-                                    "$ref": "#/definitions/parcours"
-                                },
-                                "example": {
-                                    "_id": "",
-                                    "titre": "",
-                                    "description": "",
-                                    "temps": "",
-                                    "listeEtapes": [
-                                    ""
-                                    ],
-                                    "image": ""
-                                    }
+                                "$ref": "#/definitions/parcours"
                             }
                         }
                     },
@@ -203,9 +164,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "anyOf": {
-                                    "$ref": "#/definitions/users"
-                                }
+                                "$ref": "#/definitions/users"
                             }
                         }
                     }
@@ -231,9 +190,7 @@
                         "description": "Adding a new user",
                         "required": true,
                         "schema": {
-                            "anyOf": {
-                                "$ref": "#/definitions/users"
-                            }
+                            "$ref": "#/definitions/users"
                         }
                     }
                 ],
@@ -299,9 +256,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "anyOf": {
-                                    "$ref": "#/definitions/users"
-                                }
+                                "$ref": "#/definitions/users"
                             }
                         }
                     },
@@ -394,9 +349,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "anyOf": {
-                                    "$ref": "#/definitions/etapes"
-                                }
+                                "$ref": "#/definitions/etapes"
                             }
                         }
                     }
@@ -422,9 +375,7 @@
                         "description": "Adding a new etape created by the webmaster",
                         "required": true,
                         "schema": {
-                            "anyOf": {
-                                "$ref": "#/definitions/etapes"
-                            }
+                            "$ref": "#/definitions/etapes"
                         }
                     }
                 ],
@@ -459,9 +410,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "anyOf": {
-                                    "$ref": "#/definitions/etapes"
-                                }
+                                "$ref": "#/definitions/etapes"
                             }
                         }
                     },
@@ -543,11 +492,6 @@
             }
         }
     },
-    "security": [
-        {
-            "mySecurityDefinition": []
-        }
-    ],
     "definitions": {
         "parcours": {
             "type": "object",
@@ -605,9 +549,6 @@
                         "type": "string"
                     }
                 }
-            },
-            "xml": {
-                "name": "Users"
             }
         },
         "etapes": {
@@ -651,20 +592,20 @@
                         },
                         "reponsePossible": {
                             "type": "array",
-                            "item": {
+                            "items": {
                                 "type": "string"
                             }
+                        },
+                        "reponse": {
+                            "type": "string"
+                        },
+                        "success": {
+                            "type": "string"
+                        },
+                        "failure": {
+                            "type": "string"
                         }
                     }
-                },
-                "reponse": {
-                    "type": "string"
-                },
-                "success": {
-                    "type": "string"
-                },
-                "failure": {
-                    "type": "string"
                 }
             }
         }
