@@ -53,14 +53,14 @@ router.delete('/parcours/:id', (req, res, next) => {
 
 
 
-// router.put('/todos/:id', (req, res, next) => {
-//     let id = req.params.id
-//     const localdb = db.client.db(process.env.DATABASE);
-//     const collection = localdb.collection(process.env.COLL_PARCOURS);
-//     collection.updateOne({  "_id": ObjectId(id) }, { $set: req.body }, function (err) {
-//         if (err) throw err
-//         res.status(201).send(true);
-//     });
-// });
+router.put('/parcours/:id', (req, res, next) => {
+    let id = req.params.id
+    const localdb = db.client.db(process.env.DB_NAME);
+    const collection = localdb.collection(process.env.COLL_PARCOURS);
+    collection.updateOne({  "_id": ObjectId(id) }, { $set: req.body }, function (err) {
+        if (err) throw err
+        res.status(201).send(true);
+    });
+});
 
 module.exports = router;
